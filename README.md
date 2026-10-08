@@ -1,2 +1,3 @@
 # Sumido
-Primeiro repositório
+Primeiro repositório feito por minha pessoa
+
