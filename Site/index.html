@@ -1,13 +1,265 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Primero Site do Zero</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+
+  <title>Meu Aplicativo</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #000000;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 28px 22px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 22px;
+      border-bottom: 1px solid #292929;
+    }
+
+    header strong {
+      font-size: 19px;
+    }
+
+    .tag {
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    .tela {
+      padding-top: 28px;
+    }
+
+    .tela h1 {
+      font-size: 30px;
+      margin: 0 0 12px;
+    }
+
+    .descricao {
+      color: #aaa;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      min-height: 50px;
+      margin: 12px 0;
+      padding: 14px 18px;
+      border: 1px solid #fff;
+      border-radius: 12px;
+      background: #fff;
+      color: #000;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:active {
+      opacity: 0.7;
+    }
+
+    button.secundario {
+      background: #000;
+      color: #fff;
+      border-color: #444;
+    }
+
+    .cartao {
+      padding: 18px;
+      margin: 16px 0;
+      border: 1px solid #333;
+      border-radius: 14px;
+      background: #101010;
+    }
+
+    .cartao p {
+      color: #aaa;
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid #292929;
+      color: #777;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Olá pessoal</h1>
-    <hr>
-    <p>lore ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  <div class="app">
+
+    <header>
+      <strong>MEU APLICATIVO</strong>
+      <span class="tag">VERSÃO 1.0</span>
+    </header>
+
+    <main>
+
+      <!-- TELA INICIAL -->
+      <section id="inicio" class="tela">
+        <h1>Olá! 👋</h1>
+
+        <p class="descricao">
+          Bem-vindo ao seu aplicativo.
+          Escolha uma opção para continuar.
+        </p>
+
+        <button onclick="abrirTela('perfil')">
+          Meu perfil
+        </button>
+
+        <button onclick="abrirTela('configuracoes')">
+          Configurações
+        </button>
+
+        <button onclick="abrirTela('sobre')">
+          Sobre o aplicativo
+        </button>
+      </section>
+
+      <!-- TELA DE PERFIL -->
+      <section id="perfil" class="tela" hidden>
+        <h1>Meu perfil</h1>
+
+        <p class="descricao">
+          Esta é a sua área de perfil.
+        </p>
+
+        <div class="cartao">
+          <strong>Meu usuário</strong>
+          <p>Você poderá colocar suas informações aqui.</p>
+        </div>
+
+        <button onclick="abrirTela('configuracoes')">
+          Configurações
+        </button>
+
+        <button class="secundario" onclick="voltarTela()">
+          Voltar
+        </button>
+      </section>
+
+      <!-- TELA DE CONFIGURAÇÕES -->
+      <section id="configuracoes" class="tela" hidden>
+        <h1>Configurações</h1>
+
+        <p class="descricao">
+          Personalize as informações do aplicativo.
+        </p>
+
+        <div class="cartao">
+          <strong>Aparência</strong>
+          <p>O aplicativo está usando o tema preto.</p>
+        </div>
+
+        <button onclick="abrirTela('perfil')">
+          Meu perfil
+        </button>
+
+        <button class="secundario" onclick="voltarTela()">
+          Voltar
+        </button>
+      </section>
+
+      <!-- TELA SOBRE -->
+      <section id="sobre" class="tela" hidden>
+        <h1>Sobre o aplicativo</h1>
+
+        <p class="descricao">
+          Este é meu primeiro aplicativo HTML.
+          Ele foi criado com HTML, CSS e JavaScript.
+        </p>
+
+        <div class="cartao">
+          <strong>Meu projeto</strong>
+          <p>
+            Aqui você poderá adicionar informações
+            sobre o objetivo do aplicativo.
+          </p>
+        </div>
+
+        <button onclick="abrirTela('inicio')">
+          Voltar ao início
+        </button>
+
+        <button class="secundario" onclick="voltarTela()">
+          Voltar
+        </button>
+      </section>
+
+    </main>
+
+    <footer>
+      Meu Aplicativo · Desenvolvido por mim
+    </footer>
+
+  </div>
+
+  <script>
+    let telaAtual = 'inicio';
+    const historico = [];
+
+    function abrirTela(nome) {
+      const destino = document.getElementById(nome);
+
+      if (!destino || nome === telaAtual) {
+        return;
+      }
+
+      historico.push(telaAtual);
+      mostrarTela(nome);
+    }
+
+    function mostrarTela(nome) {
+      document.querySelectorAll('.tela').forEach(function(tela) {
+        tela.hidden = true;
+      });
+
+      document.getElementById(nome).hidden = false;
+      telaAtual = nome;
+
+      window.scrollTo(0, 0);
+    }
+
+    function voltarTela() {
+      if (historico.length > 0) {
+        const anterior = historico.pop();
+        mostrarTela(anterior);
+      } else {
+        mostrarTela('inicio');
+      }
+    }
+  </script>
+
 </body>
 </html>
